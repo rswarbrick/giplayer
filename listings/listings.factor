@@ -61,5 +61,8 @@ PRIVATE>
 : get-listings ( type -- listings )
     [ dup maybe-fetch-listings dup ] [ drop 0.1 sleep ] until nip ;
 
+: clear-listings ( -- )
+    [ V{ } clone to: listings-db ] with-listings-lock ;
+
 : <listings-model> ( radio-model -- listings-model )
     [ peek-listings ] [ get-listings ] <marrow> ;
