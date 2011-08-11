@@ -13,20 +13,14 @@ CONSTANT: program-types { { "radio" "Radio" }
                           { "tv" "TV" }
                           { "livetv" "Live TV" } }
 
-! The following functions are call-backs from GUI functions
-
 : search-programs ( string -- )
     drop ;
 
 : refresh-listings ( button -- )
     drop ;
 
-! (End call-back functions)
-
-! The following functions set up the GUI.
-
 : <title-label> ( -- gadget )
-    "Gnome Get-iPlayer" <label>
+    "Get-iPlayer Frontend" <label>
         sans-serif-font 20 >>size >>font ;
 
 : <types-buttons> ( -- gadget )
