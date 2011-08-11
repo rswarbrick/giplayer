@@ -1,5 +1,5 @@
 USING: kernel accessors sequences
-       giplayer.backend giplayer.listings
+       giplayer.backend giplayer.listings giplayer.program-gadgets
        ui ui.gadgets ui.gadgets.packs ui.gadgets.labels
        ui.gadgets.editors ui.gadgets.buttons fonts
        models models.arrow math.parser ;
@@ -35,10 +35,12 @@ CONSTANT: program-types { { "radio" "Radio" }
     <types-buttons> [ add-gadget ] dip ;
 
 : <listings-pane> ( radio-model -- gadget )
-    <listings-model> [ length number>string ] <arrow> <label-control> ;
+    <listings-model> <programme-list> ;
 
 : <gip-gadget> ( -- gadget )
-    <pile> <top-pane> [ add-gadget ] dip <listings-pane> add-gadget ;
+    <pile>
+        1 >>fill
+    <top-pane> [ add-gadget ] dip <listings-pane> add-gadget ;
     
 MAIN-WINDOW: giplayer-window { { title "Gnome iPlayer" } }
     <gip-gadget> >>gadgets ;
