@@ -1,5 +1,5 @@
 USING: kernel accessors
-       giplayer.backend
+       giplayer.backend giplayer.listings
        ui ui.gadgets ui.gadgets.packs ui.gadgets.labels
        ui.gadgets.editors ui.gadgets.buttons fonts
        models ;
@@ -12,7 +12,7 @@ CONSTANT: program-types { { "radio" "Radio" }
                           { "liveradio" "Live Radio" }
                           { "tv" "TV" }
                           { "livetv" "Live TV" } }
-
+                          
 : search-programs ( string -- )
     drop ;
 
