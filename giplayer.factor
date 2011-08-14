@@ -2,6 +2,7 @@ USING: kernel accessors sequences formatting
        giplayer.backend giplayer.listings giplayer.program-gadgets
        giplayer.search-box
        ui ui.gadgets ui.gadgets.packs ui.gadgets.labels
+       ui.gadgets.frames ui.gadgets.grids
        ui.gadgets.editors ui.gadgets.buttons fonts
        models models.arrow math.parser ;
 
@@ -13,9 +14,6 @@ CONSTANT: program-types { { "radio" "Radio" }
                           { "liveradio" "Live Radio" }
                           { "tv" "TV" }
                           { "livetv" "Live TV" } }
-
-: search-programs ( string -- )
-    drop ;
 
 : <title-label> ( -- gadget )
     "Get-iPlayer Frontend" <label>
@@ -31,8 +29,12 @@ CONSTANT: program-types { { "radio" "Radio" }
         <pile> <title-label> add-gadget swap add-gadget swap
     ] dip ;
 
-: <top-pane> ( -- gadget search-model )
-    <shelf> top-stuff [ [ add-gadget ] dip add-gadget ] dip ;
+TUPLE: top-bar < pack ;
+
+: <top-bar> ( -- gadget search-model )
+    top-bar new
+        horizontal >>orientation
+    top-stuff [ [ add-gadget ] dip add-gadget ] dip ;
 
 : seq-to-count-str ( seq noun -- str )
     [ length ] dip over 1 = [ "" ] [ "s" ] if "%d %s%s found" sprintf ;
@@ -43,12 +45,12 @@ CONSTANT: program-types { { "radio" "Radio" }
 : <listings-pane> ( listings-model -- gadget )
     <programme-list> ;
 
-: <gip-gadget> ( -- gadget )
-    <pile>
-        1 >>fill
-    <top-pane> [ add-gadget ] dip
-    [ <count-pane> add-gadget ] keep
-    <listings-pane> add-gadget ;
+: frame-layout ( -- frame )
+    1 3 <frame>
+        { 0 2 } >>filled-cell
+    <top-bar> [ { 0 0 } grid-add ] dip
+    [ <count-pane> { 0 1 } grid-add ] keep
+    <listings-pane> { 0 2 } grid-add ;
     
 MAIN-WINDOW: giplayer-window { { title "Gnome iPlayer" } }
-    <gip-gadget> >>gadgets ;
+    frame-layout >>gadgets ;

@@ -2,7 +2,8 @@ USING: kernel accessors sequences arrays math math.bitwise
        giplayer.listings math.parser math.order
        models ui ui.gadgets ui.gadgets.packs ui.gadgets.labels
        ui.gadgets.panes ui.gadgets.borders ui.gadgets.scrollers
-       ui.pens.solid io.styles io locals colors fonts calendar.format ;
+       ui.tools.common ui.pens.solid
+       io.styles io locals colors fonts calendar.format ;
 
 IN: giplayer.program-gadgets
 
