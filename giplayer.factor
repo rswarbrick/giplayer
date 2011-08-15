@@ -2,7 +2,7 @@ USING: kernel accessors sequences formatting
        giplayer.backend giplayer.listings giplayer.program-gadgets
        giplayer.search-box
        ui ui.gadgets ui.gadgets.packs ui.gadgets.labels
-       ui.gadgets.frames ui.gadgets.grids
+       ui.gadgets.frames ui.gadgets.grids ui.gadgets.borders
        ui.gadgets.buttons fonts
        models models.arrow ;
 
@@ -17,13 +17,16 @@ CONSTANT: program-types { { "radio" "Radio" }
 
 : <title-label> ( -- gadget )
     "Get-iPlayer Frontend" <label>
-        sans-serif-font 20 >>size >>font ;
+        sans-serif-font 20 >>size >>font
+    { 5 5 } <border> ;
     
 : <types-buttons> ( -- gadget types-model )
     default-program-type <model>
     dup program-types <radio-buttons>
         horizontal >>orientation
         { 15 0 } >>gap
+        0.5 >>align
+    { 10 0 } <border>
     swap ;
 
 : seq-to-count-str ( seq noun -- str )
@@ -37,10 +40,17 @@ TUPLE: top-bar < pack ;
 : <top-bar> ( -- gadget search-model )
     top-bar new
         vertical >>orientation
-    <shelf> <title-label> add-gadget
-    <types-buttons> [ add-gadget add-gadget ] dip
+        1 >>fill
+    3 1 <frame>
+        { 1 0 } >>filled-cell
+    <title-label> { 0 0 } grid-add
+    <types-buttons> [ { 2 0 } grid-add add-gadget ] dip
     <listings-model> <search-box> [ add-gadget ] dip
-    [ <count-pane> add-gadget ] keep ;
+    [
+        <count-pane> { 10 5 } <border>
+        2 1 <frame> { 0 0 } >>filled-cell swap { 1 0 } grid-add
+        add-gadget
+    ] keep ;
 
 : frame-layout ( -- frame )
     1 2 <frame>
