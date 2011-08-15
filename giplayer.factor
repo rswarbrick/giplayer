@@ -48,5 +48,5 @@ TUPLE: top-bar < pack ;
     <top-bar> [ { 0 0 } grid-add ] dip
     <programme-list> { 0 1 } grid-add ;
     
-MAIN-WINDOW: giplayer-window { { title "Gnome iPlayer" } }
+MAIN-WINDOW: giplayer-window { { title "Get-iPlayer Frontend" } }
     frame-layout >>gadgets ;
